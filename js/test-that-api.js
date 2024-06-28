@@ -24,7 +24,7 @@ document.querySelector("#try-it").addEventListener("click", function (event) {
       }
     ).catch(err => {
       errorDiv.textContent = err;
-      console.error(err)
+      console.error(err);
     });
   console.log("woohoo");
 })
