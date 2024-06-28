@@ -9,7 +9,32 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-xhr.open("POST", "https://api.astronomyapi.com/api/v2/studio/star-chart");
-xhr.setRequestHeader("Authorization", "Basic MmFlZDY3OWMtMGFlYi00MWQ0LWFkNDMtODZlNThlNTU0NzE1OjZhMzNhNmYwNGQ3NDY5NzRkMzExYjQwOTJlMTNhY2Q2M2JlMzM2NmU2NWFmYTZiYTllZTM5Mzc5YjFhNGM5MzUyNDVlNzdhZWQyYzYxYjYyY2MyOTcwOTRkNDI3YzkzMTkyMWQyNmViZTE2YmViY2M0ZjNmN2MyNjU5ZTMxZDA2ZjU1NDgzMmFiMzUwN2U5NGM4OWQxMTYxZjRiMjYwMDAxNWEzYzAzYWFhNTk3MTYxNTMyYTU4YWY2ZjA0MTVhMDM2NmJmOGMyYjg5NGY4NTE1ODdlNzE5YWYyMDkxOGMx");
+// Put that code here!
 
-xhr.send(data);
+
+const params = {
+  style: "inverted",
+  observer: {
+    latitude: 33.775867,
+    longitude: -84.39733,
+    date: "2024-06-13"
+  },
+  view: {
+    type: "constellation",
+    parameters: {constellation: "ori"}
+  }
+}
+
+const headers = {
+  "X-Requested-With": "XMLHttpRequest",
+  Authorization: `Basic ${btoa(`${appId}:${secret}`)}`
+}
+
+this.setSnippetData('POST', url, params, headers)
+
+axios.post(url, params, { headers }).then(response => {
+  this.imageUrl = response.data.data.imageUrl;
+  store.response = JSON.stringify(response.data, null, 2);
+
+  this.loading = false;
+});
